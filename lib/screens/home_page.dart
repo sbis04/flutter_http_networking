@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_http_networking/models/post.dart';
-import 'package:flutter_http_networking/utils/http_client.dart';
+import 'package:flutter_http_networking/utils/post_client.dart';
 
 class HomePage extends StatefulWidget {
   @override
