@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_http_networking/models/post.dart';
 import 'package:flutter_http_networking/utils/post_client.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PostClient _postClient = PostClient();
+  final _client = http.Client();
 
   String? _postTitle;
   String? _postBody;
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final post = await _postClient.fetchPost(1);
+                    final post = await _postClient.fetchPost(_client, 1);
                     setState(() {
                       _requestType = 'GET';
                       _postTitle = post.title;
@@ -103,35 +104,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('Flutter Networking'),
-  //     ),
-  //     body: Padding(
-  //       padding: const EdgeInsets.all(16.0),
-  //       child: FutureBuilder<Post>(
-  //         future: _postClient.fetchPost(1),
-  //         builder: (context, snapshot) {
-  //           if (snapshot.hasData) {
-  //             Post post = snapshot.data!;
-
-  //             return Column(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text('Title:\n${post.title}'),
-  //                 SizedBox(height: 8),
-  //                 Text('Body:\n${post.body}'),
-  //               ],
-  //             );
-  //           }
-  //           return Container();
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
 }
