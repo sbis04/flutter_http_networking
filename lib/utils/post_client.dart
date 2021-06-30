@@ -7,9 +7,9 @@ class PostClient {
   static final baseURL = "https://jsonplaceholder.typicode.com";
   static final postsEndpoint = baseURL + "/posts";
 
-  Future<Post> fetchPost(int postId) async {
+  Future<Post> fetchPost(http.Client client, int postId) async {
     final url = Uri.parse(postsEndpoint + "/$postId");
-    final response = await http.get(url);
+    final response = await client.get(url);
 
     if (response.statusCode == 200) {
       return Post.fromJson(jsonDecode(response.body));
