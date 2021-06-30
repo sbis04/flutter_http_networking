@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: () async {
                     final post = await _postClient.updatePost(
+                      1,
                       "Hello Flutter",
                       "Flutter hello world",
                     );
