@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
 
   String? _postTitle;
   String? _postBody;
+  String? _requestType;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,18 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _requestType != null
+                ? Center(
+                    child: Text(
+                      _requestType!,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                : Container(),
+            SizedBox(height: 16),
             _postTitle != null ? Text('Title:\n$_postTitle') : Container(),
             SizedBox(height: 8),
             _postBody != null ? Text('Body:\n$_postBody') : Container(),
@@ -36,6 +49,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     final post = await _postClient.fetchPost(1);
                     setState(() {
+                      _requestType = 'GET';
                       _postTitle = post.title;
                       _postBody = post.body;
                     });
@@ -49,6 +63,7 @@ class _HomePageState extends State<HomePage> {
                       "Dart hello world",
                     );
                     setState(() {
+                      _requestType = 'POST';
                       _postTitle = post.title;
                       _postBody = post.body;
                     });
@@ -63,6 +78,7 @@ class _HomePageState extends State<HomePage> {
                       "Flutter hello world",
                     );
                     setState(() {
+                      _requestType = 'PUT';
                       _postTitle = post.title;
                       _postBody = post.body;
                     });
@@ -73,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     final post = await _postClient.deletePost(2);
                     setState(() {
+                      _requestType = 'DELETE';
                       _postTitle = post.title;
                       _postBody = post.body;
                     });
